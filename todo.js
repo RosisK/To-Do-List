@@ -1,5 +1,7 @@
+const addTaskButton = document.querySelector('.add-task-btn');
+const taskInput = document.getElementById('taskInput');
+
 function addTask() {
-    const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
 
     if (taskText !== "") {
@@ -23,3 +25,9 @@ function addTask() {
     }
 }
 
+addTaskButton.addEventListener("click", addTask);
+taskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addTask();
+    }
+})
