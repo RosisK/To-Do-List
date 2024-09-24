@@ -1,42 +1,25 @@
-// Variables for HTML elements
-const inputElement = document.querySelector(".input-bar");
-const addTaskButton = document.querySelector(".add-task-button");
-const taskList = document.querySelector(".task-list");
+function addTask() {
+    const taskInput = document.getElementById('taskInput');
+    const taskText = taskInput.value.trim();
 
-// Function to add task to the list
-const addTask = () => {
-    // User-Typed Task
-    const task = inputElement.value;
+    if (taskText !== "") {
+        const todoList = document.getElementById('todoList');
+        const li = document.createElement('li');
+        li.textContent = taskText;
 
-    // Create HTML elements for the list
-    const listDiv = document.createElement("div");
-    listDiv.classList.add("task-list-div");
-    const listItem = document.createElement("li");
-    listItem.classList.add("task-list-item");
-    const removeTask = document.createElement("button");
-    removeTask.classList.add("remove-task-button");
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "Delete";
+        deleteBtn.onclick = function () {
+            todoList.removeChild(li);
+        };
 
-    listItem.innerHTML = `${task}`;
-    removeTask.innerHTML = "Remove Task";
+        li.appendChild(deleteBtn);
+        li.onclick = function () {
+            li.classList.toggle('completed');
+        };
 
-    // Append the elements to the page
-    taskList.appendChild(listDiv);
-    listDiv.appendChild(listItem);
-    listDiv.appendChild(removeTask);
-
-    // Clear input box after adding a task
-    inputElement.value = "";
-    
-    // Event listener for the "remove task" button
-    removeTask.addEventListener("click", () => {
-        taskList.removeChild(listDiv);
-    });
+        todoList.appendChild(li);
+        taskInput.value = "";
+    }
 }
 
-// Event listener to add tasks
-addTaskButton.addEventListener("click", addTask);
-inputElement.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addTask();
-    }
-});
